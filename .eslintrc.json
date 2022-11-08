@@ -17,6 +17,8 @@
 
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "@@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -38,5 +40,5 @@
     "space-before-function-paren": 0
   },
 
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking", "prettier"]
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking"]
 }
