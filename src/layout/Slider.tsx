@@ -19,9 +19,9 @@ const menuItems = [
     label: '文章'
   },
   {
-    key: '/admin/imageUploaded',
+    key: '/admin/write',
     icon: React.createElement(UserOutlined),
-    label: '图片'
+    label: '写文章'
   }
 ];
 

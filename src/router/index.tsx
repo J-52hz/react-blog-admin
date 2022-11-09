@@ -3,6 +3,7 @@ import { Navigate, RouteObject } from 'react-router-dom';
 const Layout = lazy(() => import('../layout'));
 const Home = lazy(() => import('../views/home'));
 const Article = lazy(() => import('../views/article'));
+const Write = lazy(() => import('../views/Write'));
 
 const suspenseComp = (comp: JSX.Element) => {
   return <React.Suspense fallback={<div>loading</div>}>{comp}</React.Suspense>;
@@ -24,6 +25,10 @@ const routes: RouteObject[] = [
       {
         path: 'article',
         element: suspenseComp(<Article />)
+      },
+      {
+        path: 'write',
+        element: suspenseComp(<Write />)
       }
     ]
   },
