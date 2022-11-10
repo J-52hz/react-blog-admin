@@ -19,7 +19,7 @@ const DataOverview = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: 545px;
-  margin-top: 50px;
+  margin-top: 80px;
 `;
 
 const Home: React.FC = () => {

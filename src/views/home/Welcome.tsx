@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const WelcomeBox = styled.div`
-  flex: 2 1 0;
+  flex: 1.8 1 0;
   height: 100%;
   display: flex;
   padding: 20px;

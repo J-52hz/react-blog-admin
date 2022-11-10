@@ -19,7 +19,7 @@ const menuItems = [
     label: '文章'
   },
   {
-    key: '/admin/write',
+    key: '/admin/writing',
     icon: React.createElement(UserOutlined),
     label: '写文章'
   }
@@ -37,8 +37,10 @@ const Slider = () => {
   };
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
-      <div className="logo">博客后台管理</div>
+    <Sider breakpoint="lg" collapsedWidth="0" className="sider">
+      <div className="logo" style={{ height: '32px', margin: '16px', background: '#fff', textAlign: 'center', lineHeight: '32px' }}>
+        博客后台管理
+      </div>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]} items={menuItems} onClick={selectMenu} />
     </Sider>
   );
