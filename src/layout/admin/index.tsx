@@ -2,7 +2,6 @@ import { Layout } from 'antd';
 import React from 'react';
 import Slider from './Slider';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
 
 const { Header, Content, Footer } = Layout;
 

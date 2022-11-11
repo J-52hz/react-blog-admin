@@ -11,7 +11,7 @@ const OutlineBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 140px;
+  min-height: 140px;
 `;
 
 const DataOverview = styled.div`

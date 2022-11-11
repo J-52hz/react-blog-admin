@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
-const Layout = lazy(() => import('../layout'));
+const Admin = lazy(() => import('../layout/admin'));
+const Login = lazy(() => import('../layout/Login'));
 const Home = lazy(() => import('../views/home'));
 const Article = lazy(() => import('../views/article'));
 const Write = lazy(() => import('../views/Writing'));
@@ -16,7 +17,7 @@ const routes: RouteObject[] = [
   },
   {
     path: '/admin',
-    element: suspenseComp(<Layout />),
+    element: suspenseComp(<Admin />),
     children: [
       {
         path: 'home',
@@ -31,6 +32,10 @@ const routes: RouteObject[] = [
         element: suspenseComp(<Write />)
       }
     ]
+  },
+  {
+    path: '/admin/login',
+    element: suspenseComp(<Login />)
   },
   {
     path: '*',

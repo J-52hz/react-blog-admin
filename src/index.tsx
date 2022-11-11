@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import 'antd/dist/antd.less';
-import 'reset-css';
+import './assets/style/_reset.less';
 import './assets/style/globalStyle.less';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';

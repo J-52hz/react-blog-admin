@@ -1,0 +1,30 @@
+/**
+ * 重置样式
+ */
+
+*,
+p,
+ul,
+li {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// 自定义滚动条样式
+* {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #394b59;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}

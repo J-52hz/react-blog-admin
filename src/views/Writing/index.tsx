@@ -1,15 +1,37 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { marked } from 'marked';
+import hljs from 'highlight.js';
+import WritingContainer from './style';
 
-const WritingContainer = styled.section`
-  height: 100%;
-  background-color: #fff;
-`;
+const Write: React.FC = () => {
+  const [articleContent, setArticleContent] = useState(''); //markdown的编辑内容
 
-const Write: React.FC = (props: any) => {
+  hljs.configure({
+    classPrefix: 'hljs-',
+    languages: ['CSS', 'HTML', 'JavaScript', 'TypeScript', 'Markdown']
+  });
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    highlight: (code) => hljs.highlightAuto(code).value,
+    gfm: true, // 默认为true。 允许 Git Hub标准的markdown.
+    breaks: true // 默认为false。 允许回车换行。该选项要求 gfm 为true。
+  });
+
+  const inputValue = (e: any) => {
+    setArticleContent(e.target.value);
+  };
+
   return (
     <WritingContainer>
-      <div>writing</div>
+      <div className="inputPane" onChange={inputValue}>
+        <textarea></textarea>
+      </div>
+      <div
+        className="preview"
+        dangerouslySetInnerHTML={{
+          __html: marked(articleContent)
+        }}
+      ></div>
     </WritingContainer>
   );
 };

@@ -1,8 +1,8 @@
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
 import React from 'react';
+import { Layout, Menu } from 'antd';
+import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { MenuInfo } from '../types';
+import type { MenuInfo } from '../../types';
 
 const { Sider } = Layout;
 
