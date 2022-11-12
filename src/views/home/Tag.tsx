@@ -31,7 +31,7 @@ const TagContainer = styled.div`
   }
 `;
 
-const Tag = () => {
+const Tag: React.FC = () => {
   return (
     <TagContainer>
       <h1>标签</h1>

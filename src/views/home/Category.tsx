@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { List, Modal, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { asyncGetCategoryByGroup, addNewCategory } from '../../store/feature/categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewCategoryApi } from '../../api';
+import EditCategory from './EditCategory';
 
 const CategoryContainer = styled.div`
   flex: 1 1 0;
@@ -61,53 +66,65 @@ const CategoryContainer = styled.div`
   }
 `;
 
-const Category = () => {
-  const c_list = [
-    {
-      id: 1,
-      name: '博客相关',
-      count: 3
-    },
-    {
-      id: 2,
-      name: '博客相关',
-      count: 3
-    },
-    {
-      id: 3,
-      name: '博客相关',
-      count: 3
-    },
-    {
-      id: 4,
-      name: '博客相关',
-      count: 3
-    },
-    {
-      id: 5,
-      name: '博客相关',
-      count: 3
+interface CategoryListItem {
+  ll_id: number;
+  ll_category_val: number;
+  ll_category_name: string;
+  count: number;
+}
+
+const Category: React.FC = () => {
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [isShowEditCategory, setIsShowEditCategory] = useState<boolean>(false);
+  const [categoryItem, setCategoryItem] = useState<object | undefined>();
+  const { categoryList } = useSelector((state: any) => state.category);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(asyncGetCategoryByGroup());
+  }, []);
+
+  //新建分类
+  const addCategory = async () => {
+    const ll_category_val = categoryList.length + 1;
+    const params = {
+      ll_category_name: newCategoryName,
+      ll_category_val
+    };
+    const res = await addNewCategoryApi(params);
+    if (res) {
+      dispatch(asyncGetCategoryByGroup());
     }
-  ];
+  };
+
+  const editCategory = (index: number) => {
+    return () => {
+      setCategoryItem(categoryList[index]);
+      setIsShowEditCategory(!isShowEditCategory);
+    };
+  };
 
   return (
     <CategoryContainer>
       <h1>分类</h1>
       <div className="add_category">
-        <input type="text" placeholder="请输入新的分类" />
-        <div className="confirm_button">新建</div>
+        <input type="text" value={newCategoryName} placeholder="请输入新的分类" onChange={(e) => setNewCategoryName(e.target.value)} />
+        <div className="confirm_button" onClick={addCategory}>
+          新建
+        </div>
       </div>
       <div className="c_list">
+        <EditCategory isShowEditCategory={isShowEditCategory} categoryItem={categoryItem} />
         <List
-          dataSource={c_list}
-          renderItem={(item: any) => (
-            <List.Item key={item.id}>
+          dataSource={categoryList}
+          renderItem={(item: CategoryListItem, index) => (
+            <List.Item key={item.ll_category_val}>
               <div className="left_box">
                 <div className="c_count">{item.count}</div>
-                <div className="c_name">{item.name}</div>
+                <div className="c_name">{item.ll_category_name}</div>
               </div>
               <div className="operate">
-                <EditOutlined className="edit" />
+                <EditOutlined className="edit" onClick={editCategory(index)} />
                 <DeleteOutlined className="delete" />
               </div>
             </List.Item>

@@ -1,6 +1,6 @@
 import StatisticalBox from './components/StatisticalBox';
 
-const ArticleStatistics = () => {
+const ArticleStatistics: React.FC = () => {
   const props = {
     num: 20,
     title: '文章数'

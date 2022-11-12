@@ -156,6 +156,14 @@ const WritingContainer = styled.section`
       margin-bottom: 1em;
       line-height: 1.3333333;
     }
+    h3 {
+      color: inherit;
+      font-weight: 600;
+      font-size: 1.25em;
+      margin-top: 1.6em;
+      margin-bottom: 0.6em;
+      line-height: 1.6;
+    }
     p {
       margin-top: 1.25em;
       margin-bottom: 1.25em;

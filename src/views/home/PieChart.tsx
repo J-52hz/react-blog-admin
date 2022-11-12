@@ -14,7 +14,7 @@ const PieContainer = styled.div`
   }
 `;
 
-const PieChart = () => {
+const PieChart: React.FC = () => {
   const data = [
     {
       type: '分类一',

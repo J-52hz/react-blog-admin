@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dataSlice from './feature/dataSlice';
+import articleSlice from './feature/articleSlice';
+import categorySlice from './feature/categorySlice';
 
 export default configureStore({
   reducer: {
-    data: dataSlice
+    article: articleSlice,
+    category: categorySlice
   }
 });
