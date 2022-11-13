@@ -1,4 +1,5 @@
 import { Pie } from '@ant-design/plots';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const PieContainer = styled.div`
@@ -14,38 +15,18 @@ const PieContainer = styled.div`
   }
 `;
 
-const PieChart: React.FC = () => {
-  const data = [
-    {
-      type: '分类一',
-      value: 27
-    },
-    {
-      type: '分类二',
-      value: 25
-    },
-    {
-      type: '分类三',
-      value: 18
-    },
-    {
-      type: '分类四',
-      value: 15
-    },
-    {
-      type: '分类五',
-      value: 10
-    },
-    {
-      type: '其他',
-      value: 5
-    }
-  ];
+interface Props {
+  categoryList: any[];
+}
+
+const PieChart: React.FC<Props> = (props: Props) => {
+  const { categoryList } = props;
+
   const config = {
     appendPadding: 10,
-    data,
-    angleField: 'value',
-    colorField: 'type',
+    data: categoryList,
+    angleField: 'count',
+    colorField: 'll_category_name',
     radius: 0.8,
     label: {
       type: 'outer',

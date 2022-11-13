@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { List, Modal, message, Popconfirm } from 'antd';
+import { List, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { asyncGetCategoryByGroup, addNewCategory } from '../../store/feature/categorySlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNewCategoryApi } from '../../api';
+import { asyncGetCategoryByGroup } from '../../store/feature/categorySlice';
+import { useDispatch } from 'react-redux';
+import { addNewCategoryApi, updateCategory, deleteCategoryById } from '../../api';
 import EditCategory from './EditCategory';
 
 const CategoryContainer = styled.div`
@@ -73,19 +73,21 @@ interface CategoryListItem {
   count: number;
 }
 
-const Category: React.FC = () => {
+interface Props {
+  categoryList: CategoryListItem[];
+}
+
+const Category: React.FC<Props> = (props: Props) => {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isShowEditCategory, setIsShowEditCategory] = useState<boolean>(false);
-  const [categoryItem, setCategoryItem] = useState<object | undefined>();
-  const { categoryList } = useSelector((state: any) => state.category);
+  const [editIndex, setEditIndex] = useState<number>();
+  const { categoryList } = props;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(asyncGetCategoryByGroup());
-  }, []);
 
   //新建分类
   const addCategory = async () => {
+    const sameName = categoryList.find((i) => i.ll_category_name == newCategoryName);
+    if (sameName) return message.warning('已有相同分类');
     const ll_category_val = categoryList.length + 1;
     const params = {
       ll_category_name: newCategoryName,
@@ -93,15 +95,47 @@ const Category: React.FC = () => {
     };
     const res = await addNewCategoryApi(params);
     if (res) {
+      message.success('成功新建分类');
       dispatch(asyncGetCategoryByGroup());
     }
   };
 
+  // 点击编辑分类弹出编辑弹窗
   const editCategory = (index: number) => {
     return () => {
-      setCategoryItem(categoryList[index]);
-      setIsShowEditCategory(!isShowEditCategory);
+      setEditIndex(index);
+      setIsShowEditCategory(true);
     };
+  };
+
+  // 取消编辑
+  const cancelEdit = () => {
+    setIsShowEditCategory(false);
+  };
+
+  // 确认编辑
+  const confirmEdit = (newCategoryName: string) => {
+    return async () => {
+      const params = {
+        ll_category_val: categoryList[editIndex!].ll_category_val,
+        ll_category_name: newCategoryName
+      };
+      const res = await updateCategory(params);
+      if (res) {
+        message.success('编辑分类成功');
+        dispatch(asyncGetCategoryByGroup());
+        setIsShowEditCategory(false);
+      }
+    };
+  };
+
+  // 删除分类
+  const deleteCategory = async (ll_id: number) => {
+    const res = await deleteCategoryById({ ll_id });
+    if (res) {
+      message.success('删除成功');
+      dispatch(asyncGetCategoryByGroup());
+    }
   };
 
   return (
@@ -114,7 +148,7 @@ const Category: React.FC = () => {
         </div>
       </div>
       <div className="c_list">
-        <EditCategory isShowEditCategory={isShowEditCategory} categoryItem={categoryItem} />
+        <EditCategory isShowEditCategory={isShowEditCategory} cancelEdit={cancelEdit} confirmEdit={confirmEdit} />
         <List
           dataSource={categoryList}
           renderItem={(item: CategoryListItem, index) => (
@@ -125,7 +159,9 @@ const Category: React.FC = () => {
               </div>
               <div className="operate">
                 <EditOutlined className="edit" onClick={editCategory(index)} />
-                <DeleteOutlined className="delete" />
+                <Popconfirm placement="top" title="确定要删除该分类吗？" onConfirm={() => deleteCategory(item.ll_id)} okText="Yes" cancelText="No">
+                  <DeleteOutlined className="classesDelete" />
+                </Popconfirm>
               </div>
             </List.Item>
           )}

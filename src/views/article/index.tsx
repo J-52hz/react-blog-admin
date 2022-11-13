@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Space, Table, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
+import { asyncGetArticleList } from '../../store/feature/articleSlice';
+import { useDispatch } from 'react-redux';
+import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 
 interface DataType {
   key: string;
@@ -8,6 +11,13 @@ interface DataType {
   age: number;
   address: string;
   tags: string[];
+}
+
+interface TableParams {
+  pagination?: TablePaginationConfig;
+  sortField?: string;
+  sortOrder?: string;
+  filters?: Record<string, FilterValue>;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -59,29 +69,28 @@ const columns: ColumnsType<DataType> = [
   }
 ];
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser']
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }
-];
+const Article: React.FC = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [tableParams, setTableParams] = useState<TableParams>({
+    pagination: {
+      current: 1,
+      pageSize: 10
+    }
+  });
+  const dispatch = useDispatch();
 
-const Article: React.FC = () => <Table columns={columns} dataSource={data} />;
+  useEffect(() => {
+    dispatch(asyncGetArticleList(tableParams.pagination));
+  }, [[JSON.stringify(tableParams)]]);
+
+  const handleTableChange = (pagination: TablePaginationConfig, filters: any, sorter: any) => {
+    setTableParams({
+      pagination,
+      filters,
+      ...sorter
+    });
+  };
+  return <Table size="middle" className="Table" bordered columns={columns} dataSource={data} loading={loading} onChange={handleTableChange} />;
+};
 export default Article;

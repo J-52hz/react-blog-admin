@@ -58,6 +58,7 @@ service.interceptors.response.use(
     const { response } = error;
     message.error(response.data.msg);
     if (response.data.state == 401) {
+      localStorage.removeItem('userToken');
       history.push('/admin/login');
     }
     // if (response) {

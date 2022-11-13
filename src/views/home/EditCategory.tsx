@@ -19,26 +19,20 @@ const InputContainer = styled.div`
 
 interface EditCategory {
   isShowEditCategory: boolean;
-  categoryItem: object | undefined;
+  cancelEdit: () => void;
+  confirmEdit: (e: string) => () => void;
 }
 
 const EditCategory: React.FC<EditCategory> = (props: EditCategory) => {
-  const { isShowEditCategory, categoryItem } = props;
+  const { isShowEditCategory, cancelEdit, confirmEdit } = props;
   const [categoryName, setCategoryName] = useState<string>('');
-
-  const confirmEdit = () => {
-    return;
-  };
-
-  const cancelEdit = () => {
-    return;
-  };
 
   useEffect(() => {
     console.log(props);
-  }, [isShowEditCategory, categoryItem]);
+  }, [isShowEditCategory]);
+
   return (
-    <Modal title="修改分类" centered open={isShowEditCategory} onOk={confirmEdit} onCancel={cancelEdit} width={400} okText="确认" cancelText="取消">
+    <Modal title="修改分类" centered open={isShowEditCategory} onOk={confirmEdit(categoryName)} onCancel={cancelEdit} width={400} okText="确认" cancelText="取消">
       <InputContainer>
         <input type="text" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
       </InputContainer>
