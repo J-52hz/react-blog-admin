@@ -35,6 +35,7 @@ const Home: React.FC = () => {
     dispatch(asyncGetCategoryByGroup());
     dispatch(asyncGetTagList());
   }, []);
+
   return (
     <>
       <OutlineBox>

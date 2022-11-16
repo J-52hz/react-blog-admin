@@ -1,5 +1,4 @@
 import { Pie } from '@ant-design/plots';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const PieContainer = styled.div`

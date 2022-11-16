@@ -26,10 +26,10 @@ const tagSlice = createSlice({
   name: 'tag',
   initialState,
   reducers: {},
-  extraReducers: {
-    [asyncGetTagList.fulfilled](state, { payload }) {
+  extraReducers(builder) {
+    builder.addCase(asyncGetTagList.fulfilled, (state, { payload }) => {
       state.tagList = payload;
-    }
+    });
   }
 });
 

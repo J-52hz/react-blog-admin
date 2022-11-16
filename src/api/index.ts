@@ -59,12 +59,39 @@ export const removeTag = (params: TagId) => {
 };
 
 // 获取文章列表
-interface pagination {
+interface Pagination {
   pageNum: number;
   pageSize: number;
   ll_title?: string;
   ll_category?: string;
 }
-export const getArticleList = (params: pagination) => {
-  return axios.post('/api/article/getArticleList');
+export const getArticleList = (params: Pagination) => {
+  return axios.post('/api/article/getArticleList', params);
+};
+
+// 创建文章
+export interface NewArticle {
+  ll_title: string;
+  ll_titleEng: string;
+  ll_introduce: string;
+  ll_content: string;
+  ll_content_html: string;
+  ll_category: number;
+  ll_tags: string;
+}
+export const publishArticle = (params: NewArticle) => {
+  return axios.post('/api/article/publish', params);
+};
+
+// 删除文章
+type ArticleId = {
+  ll_id: number;
+};
+export const deleteArticle = (params: ArticleId) => {
+  return axios.post('/api/article/remove', params);
+};
+
+// 获取单篇文章
+export const getSingleArticle = (params: ArticleId) => {
+  return axios.post('/api/article/getSingleArticle', params);
 };

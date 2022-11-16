@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,25 +10,28 @@ const { Sider } = Layout;
 const menuItems = [
   {
     key: '/admin/home',
-    icon: React.createElement(UploadOutlined),
     label: '首页'
   },
   {
     key: '/admin/article',
-    icon: React.createElement(UploadOutlined),
     label: '文章'
   },
   {
     key: '/admin/writing',
-    icon: React.createElement(UserOutlined),
     label: '写文章'
   }
 ];
 
-const Slider = () => {
+const Slider: React.FC = () => {
   // 获取当前路由地址
   const { pathname } = useLocation();
+  const [path, setPath] = useState(pathname);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log('pathname', pathname);
+    setPath(pathname);
+  }, [pathname]);
 
   // 点击选中一个菜单
   const selectMenu = (info: MenuInfo) => {
@@ -41,7 +44,7 @@ const Slider = () => {
       <div className="logo" style={{ height: '32px', margin: '16px', background: '#fff', textAlign: 'center', lineHeight: '32px' }}>
         博客后台管理
       </div>
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={[pathname]} items={menuItems} onClick={selectMenu} />
+      <Menu theme="dark" mode="inline" defaultSelectedKeys={[path]} items={menuItems} onClick={selectMenu} />
     </Sider>
   );
 };

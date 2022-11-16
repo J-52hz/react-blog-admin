@@ -22,12 +22,12 @@ export const categorySlice = createSlice({
       state.categoryList = [payload, ...state.categoryList];
     }
   },
-  extraReducers: {
-    [asyncGetCategoryByGroup.fulfilled](state: InitialState, { payload }) {
+  extraReducers(builder) {
+    builder.addCase(asyncGetCategoryByGroup.fulfilled, (state: InitialState, { payload }) => {
       if (payload) {
         state.categoryList = payload.data;
       }
-    }
+    });
   }
 });
 

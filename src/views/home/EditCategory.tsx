@@ -28,7 +28,7 @@ const EditCategory: React.FC<EditCategory> = (props: EditCategory) => {
   const [categoryName, setCategoryName] = useState<string>('');
 
   useEffect(() => {
-    console.log(props);
+    return;
   }, [isShowEditCategory]);
 
   return (

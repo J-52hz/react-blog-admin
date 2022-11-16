@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { List, message, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { asyncGetCategoryByGroup } from '../../store/feature/categorySlice';
@@ -63,6 +63,9 @@ const CategoryContainer = styled.div`
         font-size: 18px;
       }
     }
+  }
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
 `;
 

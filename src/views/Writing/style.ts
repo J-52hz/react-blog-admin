@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
-// 编辑器样式
-const WritingContainer = styled.section`
+const WritingContainer = styled.div`
+  width: 100%;
   height: 100%;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+`;
+
+// 编辑器样式
+const ArticleContainer = styled.section`
+  flex: 1;
   display: flex;
   overflow: hidden;
   .inputPane {
@@ -12,6 +18,7 @@ const WritingContainer = styled.section`
     border: 1px solid #ccc;
     display: flex;
     flex-shrink: 0;
+    border-radius: 10px;
     textarea {
       width: 100%;
       border: none;
@@ -22,6 +29,8 @@ const WritingContainer = styled.section`
       overflow: auto;
       flex-grow: 1;
       flex-shrink: 1;
+      border-radius: 10px;
+      padding: 20px;
     }
   }
 
@@ -33,7 +42,9 @@ const WritingContainer = styled.section`
     padding: 0.6em;
     background-color: rgb(239, 238, 234);
     overflow-y: scroll;
-
+    border-radius: 10px;
+    padding: 20px;
+    line-height: 30px;
     // 代码片段
     code {
       padding: 0;
@@ -191,4 +202,104 @@ const WritingContainer = styled.section`
   }
 `;
 
-export default WritingContainer;
+const HeaderContainer = styled.div`
+  background-color: rgb(240, 242, 245);
+  .row {
+    width: 100%;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+    span {
+      height: 100%;
+      width: auto !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 14px;
+      color: rgb(0, 0, 0, 0.8);
+      border-right: 1px solid #ccc;
+      background-color: rgb(250, 250, 250);
+    }
+  }
+  .title {
+    border-top: none;
+    border-bottom: none;
+    span {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+    .cn_title {
+      width: 50%;
+      height: 100%;
+      padding-left: 10px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    .en_title {
+      flex: 1;
+      height: 100%;
+      margin-left: 20px;
+      padding-left: 10px;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+  }
+  .desc {
+    input {
+      flex: 1;
+      height: 100%;
+      padding-left: 10px;
+    }
+  }
+  .category,
+  .tags {
+    width: 100%;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+    background: #fff;
+    .c_span,
+    .t_span {
+      height: 100%;
+      line-height: 38px;
+      padding: 0 10px;
+      font-size: 14px;
+      color: rgb(0, 0, 0, 0.8);
+      border-right: 1px solid #ccc;
+      background-color: rgb(250, 250, 250);
+    }
+    .select_c,
+    .select_t {
+      flex: 1;
+    }
+  }
+  .submit {
+    height: 40px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #fff;
+    background: rgb(64, 144, 247);
+    border-radius: 5px;
+    margin-bottom: 25px;
+  }
+`;
+
+export { WritingContainer, ArticleContainer, HeaderContainer };

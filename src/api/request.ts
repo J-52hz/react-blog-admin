@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 //在index.js中引入axios
 import axios from 'axios';
 //引入qs模块，用来序列化post类型的数据

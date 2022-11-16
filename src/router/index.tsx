@@ -13,7 +13,7 @@ const suspenseComp = (comp: JSX.Element) => {
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/admin/home" />
+    element: <Navigate to="/admin/login" />
   },
   {
     path: '/admin',
